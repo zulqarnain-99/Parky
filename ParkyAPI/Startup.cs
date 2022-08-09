@@ -51,14 +51,15 @@ namespace ParkyAPI
                         {
                             Email = "zulqarnain.bscs@gmail.com",
                             Name = "Zulqarnain Qasim",
+                            Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
                         },
                         License = new Microsoft.OpenApi.Models.OpenApiLicense()
                         {
-                            Name = " License Under Zulqarnain",
+                            Name = "MIT License",
                             Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
                         }
 
-                    }); ; ;
+                    });
                 var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var cmlcommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
                 options.IncludeXmlComments(cmlcommentsFullPath);
