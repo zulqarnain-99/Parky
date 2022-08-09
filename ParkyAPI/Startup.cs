@@ -44,9 +44,21 @@ namespace ParkyAPI
                 options.SwaggerDoc("ParkyOpenAPISpec",
                     new Microsoft.OpenApi.Models.OpenApiInfo()
                     {
-                          Title = "Parky Api",
-                          Version = "1"
-                    });
+                        Title = "Parky Api",
+                        Version = "1",
+                        Description = " Parki Api Created By Zulqarnain",
+                        Contact = new Microsoft.OpenApi.Models.OpenApiContact()
+                        {
+                            Email = "zulqarnain.bscs@gmail.com",
+                            Name = "Zulqarnain Qasim",
+                        },
+                        License = new Microsoft.OpenApi.Models.OpenApiLicense()
+                        {
+                            Name = " License Under Zulqarnain",
+                            Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
+                        }
+
+                    }); ; ;
                 var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var cmlcommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
                 options.IncludeXmlComments(cmlcommentsFullPath);
