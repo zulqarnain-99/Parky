@@ -50,6 +50,42 @@ namespace ParkyAPI.Controllers
             return Ok(objDto);
         }
 
+        [HttpPost]
+        public IActionResult CreateNationalPark([FromBody] NationalParkDto nationalParkDto)
+        {
+            if(nationalParkDto == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (_npRepo.NationalParkExists(nationalParkDto.Name))
+            {
+                ModelState.AddModelError(" ", "National Park Exists");
+                return StatusCode(404, ModelState);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var objDto = _mapper.Map<NationalParkDto>(nationalParkDto);
+
+            if (!_npRepo.CreateNationalPark(objDto))
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                return StatusCode(500);
+            }
+
+            return Ok();
+
+
+
+        }
+
+
+
+
+
 
 
 
