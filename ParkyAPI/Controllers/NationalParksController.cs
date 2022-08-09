@@ -38,7 +38,7 @@ namespace ParkyAPI.Controllers
         }
 
 
-        [HttpGet("{NationalParkId:int}")]
+        [HttpGet("{NationalParkId:int}," , Name = "GetNationalPark")]
         public IActionResult GetNationalPark(int NationalParkId)
         {
             var obj = _npRepo.GetNationalPark(NationalParkId);
@@ -64,10 +64,6 @@ namespace ParkyAPI.Controllers
                 return StatusCode(404, ModelState);
             }
 
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var objDto = _mapper.Map<NationalParkDto>(nationalParkDto);
 
             if (!_npRepo.CreateNationalPark(objDto))
@@ -76,7 +72,7 @@ namespace ParkyAPI.Controllers
                 return StatusCode(500);
             }
 
-            return Ok();
+            return CreatedAtRoute("GetNationalPark", new { nationalParkId = objDto.Id }, objDto);
 
 
 
