@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ParkyAPI.Models
@@ -19,5 +20,7 @@ namespace ParkyAPI.Models
 
         [ForeignKey("NationalParkId")]
         public NationalPark NationalPark { get; set; }
+
+        public DateTime DateCreated { get; set; }
     }
 }

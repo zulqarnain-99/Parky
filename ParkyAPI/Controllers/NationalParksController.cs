@@ -3,6 +3,7 @@ using Grpc.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ParkyAPI.Models;
+using ParkyAPI.Models.Dtos;
 using ParkyAPI.Repository.IRepository;
 using System;
 using System.Collections.Generic;
