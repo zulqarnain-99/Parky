@@ -13,7 +13,9 @@ using System.Threading.Tasks;
 namespace ParkyAPI.Controllers
 {
     [Route("api/Trails")]
-    [ApiController] 
+    [ApiController]
+    [ApiExplorerSettings(GroupName = "ParkyOpenAPISpecTrails")]
+
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
     public class TrailsController : ControllerBase
@@ -68,58 +70,59 @@ namespace ParkyAPI.Controllers
             return Ok(objDto);
         }
 
-        [HttpPost]
-        [ProducesResponseType(201, Type = typeof(TrailDto))]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesDefaultResponseType]
-        public IActionResult CreateTrail([FromBody] TrailCreateDto TrailDto)
-        {
-            if(TrailDto == null)
-            {
-                return BadRequest(ModelState);
-            }
 
-            if (_trailRepo.trailExists(TrailDto.Name))
-            {
-                ModelState.AddModelError(" ", "Trail Exists");
-                return StatusCode(404, ModelState);
-            }
+        //[HttpPost]
+        //[ProducesResponseType(201, Type = typeof(TrailDto))]
+        //[ProducesResponseType(StatusCodes.Status201Created)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //[ProducesDefaultResponseType]
+        //public IActionResult CreateTrail([FromBody] TrailUpsertDto TrailDto)
+        //{
+        //    if (TrailDto == null)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            var objDto = _mapper.Map<TrailDto>(TrailDto);
+        //    if (_trailRepo.trailExists(TrailDto.Name))
+        //    {
+        //        ModelState.AddModelError(" ", "Trail Exists");
+        //        return StatusCode(404, ModelState);
+        //    }
 
-            if (!_trailRepo.CreateTrail(objDto))
-            {
-                ModelState.AddModelError("", "Something went wrong");
-                return StatusCode(500);
-            }
+        //    var objDto = _mapper.Map<Trail>(TrailDto);
 
-            return CreatedAtRoute("GetTrail", new { nationalParkId = objDto.Id }, objDto);
+        //    if (!_trailRepo.CreateTrail(objDto))
+        //    {
+        //        ModelState.AddModelError("", "Something went wrong");
+        //        return StatusCode(500);
+        //    }
 
-        }
+        //    return CreatedAtRoute("GetTrail", new { TrailId = objDto.Id }, objDto);
 
-        [HttpPatch("{TrailId:int},", Name = "UpdateTrail")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult UpdateTrail(int TrailId, [FromBody] TrailUpdateDto trailDto)
-        {
-            if (trailDto == null || TrailId != trailDto.Id)
-            {
-                return BadRequest(ModelState);
-            }
+        //}
 
-            var objDto = _mapper.Map<TrailDto>(trailDto);
+        //[HttpPatch("{TrailId:int},", Name = "UpdateTrail")]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //public IActionResult UpdateTrail(int TrailId, [FromBody] TrailUpsertDto trailDto)
+        //{
+        //    if (trailDto == null || TrailId != trailDto.Id)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (!_trailRepo.UpdateTrail(objDto))
-            {
-                ModelState.AddModelError("", "Something went wrong");
-                return StatusCode(500, ModelState);
-            }
+        //    var objDto = _mapper.Map<Trail>(trailDto);
 
-            return NoContent();
+        //    if (!_trailRepo.UpdateTrail(objDto))
+        //    {
+        //        ModelState.AddModelError("", "Something went wrong");
+        //        return StatusCode(500, ModelState);
+        //    }
 
-        }
+        //    return NoContent();
+
+        //}
 
         [HttpDelete("{TrailId:int},", Name = "DeleteTrail")]
         [ProducesResponseType(201, Type = typeof(TrailDto))]

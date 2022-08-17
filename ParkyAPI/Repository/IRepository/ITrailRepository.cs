@@ -9,14 +9,15 @@ namespace ParkyAPI.Repository.IRepository
 {
     public interface ITrailRepository
     {
-        ICollection<TrailDto> GetTrail();
+        ICollection<Trail> GetTrail();
+        ICollection<Trail> GetTrailsInNationalPark(int npId);
 
-        TrailDto GetTrail(int trailId);
+        Trail GetTrail(int trailId);
         bool TrailExists(int id);
         bool trailExists(string name);
-        bool CreateTrail(TrailDto trail);
-        bool UpdateTrail(TrailDto trail);
-        bool Deletetrail(TrailDto trail);
+        bool CreateTrail(Trail trail);
+        bool UpdateTrail(Trail trail);
+        bool Deletetrail(Trail trail);
         bool Save();
 
 

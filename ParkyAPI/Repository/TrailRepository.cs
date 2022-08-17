@@ -1,4 +1,5 @@
-﻿using ParkyAPI.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ParkyAPI.Data;
 using ParkyAPI.Models;
 using ParkyAPI.Models.Dtos;
 using ParkyAPI.Repository.IRepository;
@@ -18,26 +19,26 @@ namespace ParkyAPI.Repository
             _db = db;
         }
 
-        public bool CreateTrail(TrailDto Trial)
+        public bool CreateTrail(Trail Trial)
         {
             _db.Trail.Add(Trial);
             return Save();
         }
 
-        public bool Deletetrail(TrailDto Trial)
+        public bool Deletetrail(Trail trail)
         {
-            _db.Trail.Remove(Trial);
+            _db.Trail.Remove(trail);
             return Save();
         }
 
-        public TrailDto GetTrail(int TrialId)
+        public Trail GetTrail(int TrialId)
         {
-            return _db.Trail.FirstOrDefault(a => a.Id == TrialId);
+            return _db.Trail.Include(c => c.NationalPark).FirstOrDefault(a => a.Id == TrialId);
         }
 
-        public ICollection<TrailDto> GetTrail()
+        public ICollection<Trail> GetTrail()
         {
-            return _db.Trail.OrderBy(a => a.Name).ToList();
+            return _db.Trail.Include(c => c.NationalPark).OrderBy(a => a.Name).ToList();
         }
 
         public bool TrailExists(int id)
@@ -57,10 +58,16 @@ namespace ParkyAPI.Repository
 
         }
 
-        public bool UpdateTrail(TrailDto Trial)
+        public bool UpdateTrail(Trail Trial)
         {
             _db.Trail.Update(Trial);
             return Save(); 
         }
+
+        public ICollection<Trail> GetTrailsInNationalPark(int npId)
+        {
+            return _db.Trail.Include(c => c.NationalPark).Where(c => c.NationalParkId == npId).ToList();
+        }
+
     }
 }

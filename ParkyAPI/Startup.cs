@@ -43,10 +43,30 @@ namespace ParkyAPI
             services.AddControllers();
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("ParkyOpenAPISpec",
+                options.SwaggerDoc("ParkyOpenAPISpecNP",
                     new Microsoft.OpenApi.Models.OpenApiInfo()
                     {
-                        Title = "Parky Api",
+                        Title = "National Parky Api",
+                        Version = "1",
+                        Description = " Parki Api Created By Zulqarnain",
+                        Contact = new Microsoft.OpenApi.Models.OpenApiContact()
+                        {
+                            Email = "zulqarnain.bscs@gmail.com",
+                            Name = "Zulqarnain Qasim",
+                            Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
+                        },
+                        License = new Microsoft.OpenApi.Models.OpenApiLicense()
+                        {
+                            Name = "MIT License",
+                            Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
+                        }
+
+                    });
+
+                options.SwaggerDoc("ParkyOpenAPISpecTrails",
+                    new Microsoft.OpenApi.Models.OpenApiInfo()
+                    {
+                        Title = "Trail Api",
                         Version = "1",
                         Description = " Parki Api Created By Zulqarnain",
                         Contact = new Microsoft.OpenApi.Models.OpenApiContact()
@@ -88,7 +108,8 @@ namespace ParkyAPI
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/ParkyOpenAPISpec/swagger.json", "Parky API");
+                options.SwaggerEndpoint("/swagger/ParkyOpenAPISpecNP/swagger.json", "National Parky API");
+                options.SwaggerEndpoint("/swagger/ParkyOpenAPISpecTrails/swagger.json", "Trail Parky API");
                 options.RoutePrefix = "";
             });
 
