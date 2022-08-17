@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ParkyAPI.Models.Dtos
 {
-    public class TrailUpsertDto
+    public class TrailUpdateDto
     {
         public int Id { get; set; }
         [Required]
